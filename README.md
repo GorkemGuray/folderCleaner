@@ -1,24 +1,24 @@
 # 🧹 OMRON Folder Cleanup Script
 
-🤖 A PowerShell script designed to automatically manage and clean up OMRON log folders based on configurable retention criteria. The script supports both test (dry run) and production modes, with comprehensive logging capabilities.
+A PowerShell script designed to automatically manage and clean up OMRON log folders based on configurable retention criteria. The script supports both test (dry run) and production modes, with comprehensive logging capabilities.
 
 ## 👨‍💻 Author & Contact
 - **Author**: Görkem Güray
 - **Website**: [gorkem.co](https://gorkem.co)
 - **Created**: 2024
 
-> ## ⚠️ IMPORTANT DISCLAIMER ⚠️
+> ## ⚠️ IMPORTANT DISCLAIMER
 > 
 > **BY USING THIS SCRIPT, YOU ACKNOWLEDGE AND ACCEPT THE FOLLOWING:**
 > 
 > ❗ This script permanently deletes folders and their contents
 > ❗ No guarantee is provided against accidental data loss
 > ❗ The user is solely responsible for:
->   - 🔍 Verifying script settings before use
->   - 🧪 Testing in dry-run mode first
->   - 💾 Backing up important data
->   - 👀 Monitoring script execution
->   - 📝 Any data loss that may occur
+>   - Verifying script settings before use
+>   - Testing in dry-run mode first
+>   - Backing up important data
+>   - Monitoring script execution
+>   - Any data loss that may occur
 > 
 > **🚨 ALWAYS TEST THE SCRIPT IN DRY-RUN MODE BEFORE PRODUCTION USE 🚨**
 > 
@@ -27,40 +27,40 @@
 ## ✨ Features
 
 ### 📂 Folder Management
-- 🗃️ Support for multiple folder paths
-- 📊 Configurable maximum folder count
-- ⏰ Date-based threshold for folder deletion
-- ✅ Validation of folder names in 'yyyyMMdd' format
+- Support for multiple folder paths
+- Configurable maximum folder count
+- Date-based threshold for folder deletion
+- Validation of folder names in 'yyyyMMdd' format
 
 ### 🔄 Operation Modes
 - 🧪 Test Mode (Dry Run)
-  - 🔍 Shows potential deletions without modifying files
-  - 🎨 Highlighted console output in Magenta color
-  - 🛡️ Safe testing environment
+  - Shows potential deletions without modifying files
+  - Highlighted console output in Magenta color
+  - Safe testing environment
 - ⚡ Production Mode
-  - 🗑️ Performs actual folder cleanup
-  - 📝 Detailed logging of all operations
+  - Performs actual folder cleanup
+  - Detailed logging of all operations
 
 ### 🧠 Smart Retention Logic
-- ⭐ Always keeps the newest specified number of folders
-- 📅 Additional date-based filtering for older folders
-- 🔒 Prevents accidental deletion of all folders
-- ⚙️ Configurable retention parameters
+- Keeps the newest specified number of folders
+- Additional date-based filtering for older folders
+- Prevents accidental deletion of all folders
+- Configurable retention parameters
 
 ### 📋 Comprehensive Logging
-- 🕒 Detailed timestamped logs
-- 🔄 Configurable log retention
-- 📌 Optional logging feature
-- 📊 Separate success and error logging
+- Detailed timestamped logs
+- Configurable log retention
+- Optional logging feature
+- Separate success and error logging
 
 ## ⚙️ Configuration
 
 ### 🎮 Main Parameters
 ```powershell
-$testMode = $true        # 🧪 Set to false for production mode
-$maxFolderCount = 2      # 📊 Number of newest folders to keep (0 to disable)
-$daysThreshold = 2       # ⏰ Age threshold in days (0 to disable)
-$enableLogging = $true   # 📝 Enable/disable logging
+$testMode = $true        # Set to false for production mode
+$maxFolderCount = 15     # Number of newest folders to keep (0 to disable)
+$daysThreshold = 18      # Age threshold in days (0 to disable)
+$enableLogging = $true   # Enable/disable logging
 ```
 
 ### 📂 Folder Paths
@@ -75,8 +75,8 @@ $folderPaths = @(
 
 ### 📝 Logging Configuration
 ```powershell
-$logFilePath = "C:\FolderCleaner\Logs\cleanup.txt"
-$logRetentionDays = 30  # 🔄 Days to keep log entries
+$logFilePath = "C:\folderCleaner\Logs\cleanup.txt"
+$logRetentionDays = 30  # Days to keep log entries
 ```
 
 ## 🚀 Usage
@@ -85,114 +85,130 @@ $logRetentionDays = 30  # 🔄 Days to keep log entries
 Run the script directly in PowerShell with administrator privileges:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File "C:\Users\grkmg\OneDrive\Masaüstü\folderCleaner\FolderCleanup.ps1"
+powershell -ExecutionPolicy Bypass -File "C:\folderCleaner\FolderCleanup.ps1"
 ```
 
 ### ⏰ Task Scheduler Setup
-1. 📱 Open Task Scheduler
-2. ➕ Create a new task:
-   - 📋 General tab:
-     - 📝 Name: "OMRON Folder Cleanup"
-     - 🔑 Run with highest privileges: ✓
-     - 🖥️ Configure for: Windows 10
-   - ⏰ Triggers tab:
-     - 📅 New Trigger: Daily at your preferred time
-   - 🎯 Actions tab:
-     - ➕ New Action:
-       - 💻 Program/script: `powershell.exe`
-       - 🔧 Arguments: `-ExecutionPolicy Bypass -File "C:\Users\grkmg\OneDrive\Masaüstü\folderCleaner\FolderCleanup.ps1"`
-   - 🔌 Conditions tab:
-     - 🔋 Start the task only if the computer is on AC power: ✓
-   - ⚙️ Settings tab:
-     - 🔄 If the task fails, restart every: 5 minutes
-     - 🔁 Attempt to restart up to: 3 times
+1. Open Task Scheduler
+2. Create a new task:
+   - General tab:
+     - Name: "OMRON Folder Cleanup"
+     - Run with highest privileges: ✓
+     - Configure for: Windows 10
+   - Triggers tab:
+     - New Trigger: Daily at your preferred time
+   - Actions tab:
+     - New Action:
+       - Program/script: `powershell.exe`
+       - Arguments: `-ExecutionPolicy Bypass -File "C:\folderCleaner\FolderCleanup.ps1"`
+   - Conditions tab:
+     - Start the task only if the computer is on AC power: ✓
+   - Settings tab:
+     - If the task fails, restart every: 5 minutes
+     - Attempt to restart up to: 3 times
 
-## 📚 Usage Scenarios
 
-### 📊 Scenario 1: Keep Latest Folders Only
-```powershell
-$maxFolderCount = 2
-$daysThreshold = 0
+## 🧪 Test Scenarios
+
+> 📅 Test Date: November 25, 2024
+> 🎯 Threshold Date: November 07, 2024 (18 days prior)
+
+To demonstrate how different configurations affect folder retention, here are three test scenarios using a mixed-date folder list:
+
+#### 📁 Sample Folder List (Mixed Dates)
 ```
-This configuration:
-- ✅ Keeps only the 2 newest folders
-- 🗑️ Deletes all other folders regardless of age
-- 📋 Example with 5 folders:
-  ```
-  20231125 ✅ (Kept - newest)
-  20231124 ✅ (Kept - second newest)
-  20231123 ❌ (Deleted - exceeds count)
-  20231122 ❌ (Deleted - exceeds count)
-  20231121 ❌ (Deleted - exceeds count)
-  ```
+Group 1 (Newer than 18 days, after 07.11.2024):
+20241125, 20241124, 20241122, 20241121, 20241120, 
+20241118, 20241116, 20241115, 20241112, 20241111, 
+20241110, 20241109, 20241108, 20241107
 
-### ⏰ Scenario 2: Age-Based Cleanup Only
-```powershell
-$maxFolderCount = 0
-$daysThreshold = 15
+Group 2 (Older than 18 days, before 07.11.2024):
+20241106, 20241105, 20241104, 20241103, 20241102, 20241101
 ```
-This configuration:
-- ✅ Keeps all folders newer than 15 days
-- 🗑️ Deletes all folders older than 15 days
-- 📊 Count doesn't matter
 
-### 🔄 Scenario 3: Combined Criteria
+#### 📊 Scenario Results Summary
+| Scenario | Configuration | Folders Kept | Folders Deleted |
+|----------|--------------|--------------|-----------------|
+| 1: Count Only | maxCount=15, days=0 | 15 newest | 5 oldest |
+| 2: Date Only | maxCount=0, days=18 | 14 (>18 days) | 6 (<18 days) |
+| 3: Combined | maxCount=15, days=18 | 15 (14 new + 1 old) | 5 oldest |
+
+#### 📊 Scenario 1: Keep Newest N Folders
 ```powershell
-$maxFolderCount = 2
-$daysThreshold = 15
+$maxFolderCount = 15
+$daysThreshold = 0    # Disabled
 ```
-This configuration:
-- ⭐ Always keeps the 2 newest folders
-- 📅 From the remaining folders:
-  - 🗑️ Deletes folders older than 15 days
-  - 📋 Example:
-  ```
-  20231125 ✅ (Kept - in newest 2)
-  20231124 ✅ (Kept - in newest 2)
-  20231110 ❌ (Deleted - older than 15 days)
-  20231105 ❌ (Deleted - older than 15 days)
-  ```
+- Only considers folder count
+- Keeps 15 newest folders regardless of date
+- Result:
+  - Kept (15): 20241125 through 20241106
+  - Deleted (5): 20241105 through 20241101
+
+#### 📊 Scenario 2: Keep Recent Folders
+```powershell
+$maxFolderCount = 0    # Disabled
+$daysThreshold = 18
+```
+- Only considers date threshold
+- Keeps folders newer than 18 days
+- Result:
+  - Kept (14): 20241125 through 20241107
+  - Deleted (6): 20241106 through 20241101
+
+#### 📊 Scenario 3: Combined Criteria
+```powershell
+$maxFolderCount = 15
+$daysThreshold = 18
+```
+- Applies both date threshold and folder count
+- First keeps folders newer than 18 days
+- Then adds oldest folders to reach maxFolderCount
+- Result:
+  - Kept (15):
+    * From date criteria (14): 20241125 through 20241107
+    * Added to reach max (1): 20241106
+  - Deleted (5): 20241105 through 20241101
 
 ## 🔒 Security Considerations
 
-- 🔑 Script requires administrator privileges
-- 🧪 Test mode recommended before production use
-- 🛡️ Validation prevents accidental deletion:
-  - ✅ At least one retention criterion must be active
-  - ✅ Folder name format validation
-  - ✅ Path existence checks
+- Script requires administrator privileges
+- Test mode recommended before production use
+- Validation prevents accidental deletion:
+  - At least one retention criterion must be active
+  - Folder name format validation
+  - Path existence checks
 
 ## 🐛 Error Handling
 
-- 🔍 Comprehensive try-catch blocks
-- 📝 Detailed error logging
-- 🛡️ Safe failure modes
-- ⚠️ Invalid configuration detection
-- 🔒 Path accessibility verification
+- Comprehensive try-catch blocks
+- Detailed error logging
+- Safe failure modes
+- Invalid configuration detection
+- Path accessibility verification
 
 ## 🎨 Console Output
 
-- 🎯 Color-coded status messages:
-  - 🟣 Magenta: Test mode messages
-  - 🔴 Red: Production mode and deletions
-  - 🟢 Green: Success messages
-  - ⚪ Gray: Informational messages
-  - 🔵 Cyan: Section headers
+- Color-coded status messages:
+  - Magenta: Test mode messages
+  - Red: Production mode and deletions
+  - Green: Success messages
+  - Gray: Informational messages
+  - Cyan: Section headers
 
 ## 🔧 Maintenance
 
-- 🧹 Log files are automatically cleaned up based on retention period
-- ⚠️ Invalid folder names are skipped
-- 📝 Failed operations are logged for review
-- 🛡️ No permanent changes in test mode
+- Log files are automatically cleaned up based on retention period
+- Invalid folder names are skipped
+- Failed operations are logged for review
+- No permanent changes in test mode
 
 ## ❗ Important Notes
 
-1. 🧪 Always run in test mode first
-2. 🔍 Verify folder paths before production use
-3. 💾 Backup important data before first production run
-4. 👀 Monitor log files for unexpected behavior
-5. ⚙️ Adjust retention parameters based on your needs
+1. Always run in test mode first
+2. Verify folder paths before production use
+3. Backup important data before first production run
+4. Monitor log files for unexpected behavior
+5. Adjust retention parameters based on your needs
 
 ## 📜 License
 
@@ -201,16 +217,16 @@ This project is licensed under the GNU Affero General Public License v3.0 - see 
 The AGPL-3.0 license ensures that any modifications made to the software, especially when used over a network, are shared back with the community.
 
 ### Key Points:
-- ✅ Commercial use allowed
-- ✅ Modification allowed
-- ✅ Distribution allowed
-- ✅ Private use allowed
-- 🔄 Modifications must be shared
-- ⚠️ No warranty provided
-- ⚠️ No liability accepted
+- Commercial use allowed
+- Modification allowed
+- Distribution allowed
+- Private use allowed
+- Modifications must be shared
+- No warranty provided
+- No liability accepted
 
 For the full license text, please see the [LICENSE](LICENSE) file in the repository.
 
-## 🤝 Contributing
+## Contributing
 
-Feel free to submit issues and enhancement requests! 🌟
+Feel free to submit issues and enhancement requests!
